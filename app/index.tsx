@@ -2,7 +2,7 @@ import { View, Text ,StyleSheet ,TextInput ,SafeAreaView, FlatList,TouchableOpac
 import React, { useState } from 'react'
 const Home = () => {
 
-const [input ,setInput] = useState('')
+const [input ,setInput] = useState('');
   const [todo , setTodo] = useState<string[]>(['hello world'])
 // ----------------- AddTodo--------------------//
 
