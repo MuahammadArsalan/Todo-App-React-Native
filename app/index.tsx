@@ -7,12 +7,18 @@ const [input ,setInput] = useState('')
 // ----------------- AddTodo--------------------//
 
 function addTodo(){
+if(input === ""){
+  alert('Enter Todo to add in list')
+}else{
+
+  
   console.log(input)
   todo.push(input)
   setInput([...todo])
   // console.log(todo);
   
   setInput('')
+}
 }
 // ----------------- DeleteTodo--------------------//
 
@@ -21,9 +27,9 @@ function addTodo(){
 
 let deleteTodo = (index:number) => {
   console.log('todo deleted',index);
-  todo.splice(index,1)
+  todo.splice(index , 1 )
   setTodo([...todo])
-  
+
 }
 
 
@@ -36,6 +42,7 @@ let editTodo = () => {
 
   return (
     <SafeAreaView>
+   <Text style={styles.heading}>Todo App</Text>
     <TextInput
       style={styles.input}
       onChangeText={setInput}
@@ -65,7 +72,7 @@ let editTodo = () => {
 
         } }
 />
-: null
+: <Text style={styles.notFound}>No Todo Found...</Text>
 
 }
 
@@ -75,6 +82,13 @@ let editTodo = () => {
 
 
 const styles = StyleSheet.create({
+ heading:{
+textAlign:"center",
+fontSize:20,
+marginTop:10,
+fontWeight:"bold"
+ }
+, 
   input: {
     height: 40,
     margin: 24,
@@ -112,6 +126,14 @@ color:"white"
     color: 'white',
     textAlign: 'center'
   },
+  notFound:{
+    textAlign:"center",
+  // flex:1,
+  marginTop:30,
+  // justifyContent:"center",
+  fontSize:30,
+  // alignItems:"center"
+  }
 
 
 
