@@ -21,6 +21,8 @@ function addTodo(){
 
 let deleteTodo = (index:number) => {
   console.log('todo deleted',index);
+  todo.splice(index,1)
+  setTodo([...todo])
   
 }
 
