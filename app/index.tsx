@@ -36,7 +36,7 @@ let deleteTodo = (index:number) => {
 // ----------------- EditTodo--------------------//
 
 
-let editTodo = () => {
+let editTodo = (index : number) => {
 
 }
 
