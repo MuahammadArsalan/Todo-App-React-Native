@@ -4,9 +4,9 @@ const Home = () => {
 
 const [input ,setInput] = useState('');
 const [todo , setTodo] = useState<string[]>(['hello world'])
-const [modalVisible , setModalVisible] = useState<boolean>(false)
+const [modalVisible , setModalVisible] = useState<boolean | string>(false)
 const [index,setIndex] = useState<number>(0);
-const [updatedValue , setUpdatedValue] = useState<boolean>(false)
+const [updatedValue , setUpdatedValue] = useState<string>("")
 // ----------------- AddTodo--------------------//
 
 function addTodo(){
@@ -41,15 +41,21 @@ let deleteTodo = (index:number) => {
 
 let editTodo = (index : number) => {
 
-  console.log(index)
+  // console.log(index)
   setModalVisible(true)
-  console.log(index);
-  
+  // console.log(index, updatedValue);
   setIndex(index)
+  todo.splice(index , 1,updatedValue)
 
 // todo.splice(index,1)
 }
-  return (
+ 
+function update() {
+  setUpdatedValue('')
+  setModalVisible(false)
+}
+
+return (
     <SafeAreaView>
    <Text style={styles.heading}>Todo App</Text>
     <TextInput
@@ -99,14 +105,15 @@ let editTodo = (index : number) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>     <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
+        style={styles.MadalInput}
+        onChangeText={setUpdatedValue}
+        value={updatedValue}
+        placeholder='Enter updated Value'
       /></Text>
             <Pressable
               style={[styles.buttonModal, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle} onPress={update}>Update Todo</Text>
             </Pressable>
           </View>
         </View>
@@ -134,6 +141,14 @@ fontWeight:"bold"
     height: 40,
     margin: 24,
     marginHorizontal:44,
+    borderWidth: 1,
+    padding: 10,
+  },
+  MadalInput: {
+    height: 40,
+    margin: 24,
+    width:250,
+    marginHorizontal:14,
     borderWidth: 1,
     padding: 10,
   },
