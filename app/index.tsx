@@ -45,8 +45,8 @@ let editTodo = (index : number) => {
   setModalVisible(true)
   // console.log(index, updatedValue);
   setIndex(index)
-  todo.splice(index , 1,updatedValue)
-
+  todo.splice(index,1,updatedValue)
+setTodo([...todo])
 // todo.splice(index,1)
 }
  
