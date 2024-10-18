@@ -66,7 +66,7 @@ let editTodo = (index : number) => {
         <Text onPress={() => {deleteTodo(index)}}>Delete Todo</Text>
       </TouchableOpacity>
 <TouchableOpacity  activeOpacity={0.7} style={styles.listbutton} onPress={addTodo}>
-        <Text onPress={editTodo}>Edit Todo</Text>
+        <Text onPress={() =>{editTodo(index)}}>Edit Todo</Text>
       </TouchableOpacity>
           </View>
 
