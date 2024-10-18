@@ -1,9 +1,12 @@
-import { View, Text ,StyleSheet ,TextInput ,SafeAreaView, FlatList,TouchableOpacity } from 'react-native'
+import { View, Text ,StyleSheet ,TextInput ,SafeAreaView, FlatList,TouchableOpacity, Modal, Alert, Pressable } from 'react-native'
 import React, { useState } from 'react'
 const Home = () => {
 
 const [input ,setInput] = useState('');
-  const [todo , setTodo] = useState<string[]>(['hello world'])
+const [todo , setTodo] = useState<string[]>(['hello world'])
+const [modalVisible , setModalVisible] = useState<boolean>(false)
+const [index,setIndex] = useState<number>(0);
+const [updatedValue , setUpdatedValue] = useState<boolean>(false)
 // ----------------- AddTodo--------------------//
 
 function addTodo(){
@@ -38,8 +41,14 @@ let deleteTodo = (index:number) => {
 
 let editTodo = (index : number) => {
 
-}
+  console.log(index)
+  setModalVisible(true)
+  console.log(index);
+  
+  setIndex(index)
 
+// todo.splice(index,1)
+}
   return (
     <SafeAreaView>
    <Text style={styles.heading}>Todo App</Text>
@@ -62,11 +71,11 @@ let editTodo = (index : number) => {
           return <View style={styles.item}>
 <Text style={styles.title}>{item}</Text>
 
-<TouchableOpacity  activeOpacity={0.7} style={styles.listbutton} onPress={addTodo}>
-        <Text onPress={() => {deleteTodo(index)}}>Delete Todo</Text>
+<TouchableOpacity  activeOpacity={0.7} style={styles.listbutton} onPress={() => {deleteTodo(index)}}>
+        <Text>Delete Todo</Text>
       </TouchableOpacity>
-<TouchableOpacity  activeOpacity={0.7} style={styles.listbutton} onPress={addTodo}>
-        <Text onPress={() =>{editTodo(index)}}>Edit Todo</Text>
+<TouchableOpacity  activeOpacity={0.7} style={styles.listbutton}  onPress={() =>{editTodo(index)}}>
+        <Text>Edit Todo</Text>
       </TouchableOpacity>
           </View>
 
@@ -75,6 +84,38 @@ let editTodo = (index : number) => {
 : <Text style={styles.notFound}>No Todo Found...</Text>
 
 }
+
+
+
+<View style={styles.centeredView}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>     <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={text}
+      /></Text>
+            <Pressable
+              style={[styles.buttonModal, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <Pressable
+      
+        onPress={() => {editTodo(index)}}>
+      </Pressable>
+    </View>
 
   </SafeAreaView>
   )
@@ -133,7 +174,48 @@ color:"white"
   // justifyContent:"center",
   fontSize:30,
   // alignItems:"center"
-  }
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  buttonModal: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
 
 
 
