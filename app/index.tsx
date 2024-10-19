@@ -6,7 +6,7 @@ const [input ,setInput] = useState('');
 const [todo , setTodo] = useState<string[]>(['hello world'])
 const [modalVisible , setModalVisible] = useState<boolean | string>(false)
 const [index,setIndex] = useState<number>(0);
-const [updateVal , setUpdateVal] = React.useState(todo[index])
+const [updateVal , setUpdateVal] = React.useState('')
 // ----------------- AddTodo--------------------//
 
 function addTodo(){
@@ -44,6 +44,8 @@ let editTodo = (index : number) => {
   // console.log(index);
   setIndex(index)
   setModalVisible(true)
+  setUpdateVal(todo[index])
+
 }
 function update() {
   setModalVisible(false)
@@ -114,13 +116,13 @@ return (
               style={[styles.button, styles.buttonClose]}
               onPress={() => 
               // setModalVisible(!modalVisible)
-update()
+update()  
             }>
               <Text style={styles.textStyle}>Update</Text>
             </Pressable>
 
             <TouchableOpacity style={styles.cancel}>
-        <Text style={styles.close}>Close</Text>
+        <Text style={styles.close} onPress={() =>{setModalVisible(false)}}>Close</Text>
       </TouchableOpacity>
 
           </View>
