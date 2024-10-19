@@ -1,12 +1,12 @@
 import { View, Text ,StyleSheet ,TextInput ,SafeAreaView, FlatList,TouchableOpacity, Modal, Alert, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 const Home = () => {
 
 const [input ,setInput] = useState('');
 const [todo , setTodo] = useState<string[]>(['hello world'])
 const [modalVisible , setModalVisible] = useState<boolean | string>(false)
 const [index,setIndex] = useState<number>(0);
-const [updatedValue , setUpdatedValue] = useState<string>("")
+const [updateVal , setUpdateVal] = React.useState(todo[index])
 // ----------------- AddTodo--------------------//
 
 function addTodo(){
@@ -40,19 +40,18 @@ let deleteTodo = (index:number) => {
 
 
 let editTodo = (index : number) => {
-
-  // console.log(index)
-  setModalVisible(true)
-  // console.log(index, updatedValue);
+  
+  // console.log(index);
   setIndex(index)
-  todo.splice(index,1,updatedValue)
-setTodo([...todo])
-// todo.splice(index,1)
+  setModalVisible(true)
 }
- 
 function update() {
-  setUpdatedValue('')
   setModalVisible(false)
+  todo.splice(index,1,updateVal)
+  setTodo([...todo])  
+setUpdateVal('')  
+  
+
 }
 
 return (
@@ -92,7 +91,6 @@ return (
 }
 
 
-
 <View style={styles.centeredView}>
       <Modal
         animationType="slide"
@@ -104,23 +102,34 @@ return (
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>     <TextInput
+
+          <TextInput
         style={styles.MadalInput}
-        onChangeText={setUpdatedValue}
-        value={updatedValue}
-        placeholder='Enter updated Value'
-      /></Text>
+        onChangeText={setUpdateVal}
+        value={updateVal}
+        // placeholder='Enter updated value'
+      />
+
             <Pressable
-              style={[styles.buttonModal, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle} onPress={update}>Update Todo</Text>
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => 
+              // setModalVisible(!modalVisible)
+update()
+            }>
+              <Text style={styles.textStyle}>Update</Text>
             </Pressable>
+
+            <TouchableOpacity style={styles.cancel}>
+        <Text style={styles.close}>Close</Text>
+      </TouchableOpacity>
+
           </View>
         </View>
       </Modal>
       <Pressable
-      
+        // style={[styles.button, styles.buttonOpen]}
         onPress={() => {editTodo(index)}}>
+        <Text style={styles.textStyle}>Edit</Text>
       </Pressable>
     </View>
 
@@ -136,7 +145,21 @@ fontSize:20,
 marginTop:10,
 fontWeight:"bold"
  }
-, 
+, cancel:{
+
+  backgroundColor: 'red',
+  color:"white",
+padding:10,
+marginTop:20,
+marginLeft:180,
+textAlign:"center",
+width:60
+
+
+},
+close:{
+color:"white"
+},
   input: {
     height: 40,
     margin: 24,
@@ -171,7 +194,7 @@ backgroundColor:"black",
 color:"white"
   },
   item: {
-    backgroundColor: '#000000',
+    backgroundColor: '#808080',
     borderRadius:25,
     padding: 20,
     marginVertical: 8,
@@ -194,13 +217,14 @@ color:"white"
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    marginTop: 172,
   },
   modalView: {
-    margin: 20,
+    // margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
+
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -226,6 +250,8 @@ color:"white"
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    width:100,
+    fontSize:15
   },
   modalText: {
     marginBottom: 15,
