@@ -268,5 +268,4 @@ color:"white"
 
 });
 
-
 export default Home
