@@ -7,6 +7,8 @@ const [todo , setTodo] = useState<string[]>(['hello world'])
 const [modalVisible , setModalVisible] = useState<boolean | string>(false)
 const [index,setIndex] = useState<number>(0);
 const [updateVal , setUpdateVal] = React.useState('')
+
+
 // ----------------- AddTodo--------------------//
 
 function addTodo(){
@@ -23,6 +25,8 @@ if(input === ""){
   setInput('')
 }
 }
+
+
 // ----------------- DeleteTodo--------------------//
 
 
